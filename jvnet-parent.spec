@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        4
-Release:        2.10%{?dist}
+Release:        2.11%{?dist}
 Summary:        Java.net parent POM file
 
 License:        ASL 2.0
@@ -16,7 +16,7 @@ BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix_java_common}javapackages-tools
 BuildRequires:  %{?scl_prefix_java_common}maven-local
-BuildRequires:  maven30-maven-enforcer-plugin
+BuildRequires:  %{?scl_prefix}maven-enforcer-plugin
 
 
 %description
@@ -25,7 +25,7 @@ Glassfish
 
 %prep
 %setup -c -T
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 cp -p %{SOURCE0} pom.xml
 cp -p %{SOURCE1} LICENSE
@@ -34,13 +34,13 @@ cp -p %{SOURCE1} LICENSE
 %{?scl:EOF}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_build
 %{?scl:EOF}
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_install
 %{?scl:EOF}
@@ -50,6 +50,9 @@ set -e -x
 %doc LICENSE
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 4-2.11
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 4-2.10
 - maven33 rebuild
 
